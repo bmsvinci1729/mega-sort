@@ -2,35 +2,31 @@
 #include <stdio.h>
 #include <fstream>
 #include <vector>
-#include <algorithm>
+#include "megasort.h"
+#include "file.h"
+#include <chrono>
 
 using namespace std;
+using namespace std::chrono;
 
 int main(){
-    ifstream ifile("input.txt");
-
-    if(!ifile){
-        cout << "Error operning file\n";
-    }
 
     vector<string> words;
-    string word;
 
-    while(ifile >> word){
-        words.push_back(word);
-    }
+    // TODO: get from cmd line
+    read("./data/input_1M.txt", words);
 
-    ifile.close();
+    auto start = high_resolution_clock::now();
+    megasort(words);
+    auto end = high_resolution_clock::now();
 
-    ofstream ofile("sorted.txt");
+    auto duration = end - start;
+    auto duration_ms = duration.count() / 1000000.0;
+    cout << words.size() << " words sorted in ";
+    cout << duration_ms << " ms" << endl;
 
-    sort(words.begin(), words.end());
-
-    for(auto i:words){
-        ofile << i << endl;
-    }
-
-    cout << "Sorted and saved to sorted.txt" << endl;
+    // TODO: get from cmd line
+    write("sorted.txt", words);
 
     return 0;
 }
