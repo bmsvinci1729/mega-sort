@@ -7,26 +7,30 @@
 using namespace std;
 
 int main(){
-    fstream file("input.txt");
+    ifstream ifile("input.txt");
 
-    if(!file){
+    if(!ifile){
         cout << "Error operning file\n";
     }
 
     vector<string> words;
     string word;
 
-    while(file >> word){
+    while(ifile >> word){
         words.push_back(word);
     }
 
+    ifile.close();
+
+    ofstream ofile("sorted.txt");
+
     sort(words.begin(), words.end());
 
-    cout << "Sorted words: " << endl;
-
     for(auto i:words){
-        cout << i << endl; 
+        ofile << i << endl;
     }
+
+    cout << "Sorted and saved to sorted.txt" << endl;
 
     return 0;
 }
