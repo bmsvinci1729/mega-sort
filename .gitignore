@@ -1,3 +1,6 @@
 .vscode
 sorted.txt
 input_1B.txt
+chunks/
+sorted_chunks/
+data/

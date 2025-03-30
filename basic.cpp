@@ -1,34 +1,58 @@
 #include <iostream>
-#include <stdio.h>
 #include <fstream>
 #include <vector>
+#include <thread>
+#include <string>
+#include <chrono>
 #include "megasort.h"
 #include "file.h"
-#include <chrono>
 
 using namespace std;
 using namespace std::chrono;
 
-int main(){
+void process_file_group(int thread_id, int start_index, int end_index, const string& input_dir, const string& output_dir) {
+    for (int i = start_index; i <= end_index; ++i) {
+        vector<string> words;
+        string input_path = input_dir + "/chunk_" + to_string(i) + ".txt";
+        string output_path = output_dir + "/output_chunk_" + to_string(i) + ".txt";
 
-    vector<string> words;
+        cout << "[Thread " << thread_id << "] Reading: " << input_path << endl;
 
-    // TODO: get from cmd line
-    read("./data/input_1B.txt", words);
+        read(input_path, words);
 
+        auto start = high_resolution_clock::now();
+        megasort(words);
+        auto end = high_resolution_clock::now();
 
+        double duration_ms = duration_cast<milliseconds>(end - start).count();
+        cout << "[Thread " << thread_id << "] Sorted " << words.size() << " words in " << duration_ms << " ms" << endl;
 
+        write(output_path, words);
+        cout << "[Thread " << thread_id << "] Written to: " << output_path << endl;
+    }
+}
+
+int main() {
+    const string input_dir = "./chunks";       // Folder containing chunk_*.txt
+    const string output_dir = "./sorted_chunks"; // Folder for output files
+    const int total_files = 100;
+    const int files_per_thread = 25;
+
+    vector<thread> threads;
     auto start = high_resolution_clock::now();
-    megasort(words);
+    for (int t = 0; t < 4; ++t) {
+        int start_index = t * files_per_thread;
+        int end_index = (t == 3) ? total_files - 1 : (start_index + files_per_thread - 1);
+        threads.emplace_back(process_file_group, t, start_index, end_index, input_dir, output_dir);
+    }
+
+    for (auto &t : threads) {
+        t.join();
+    }
     auto end = high_resolution_clock::now();
-    auto duration = end - start;
-    auto duration_ms = duration.count() / 1000000.0;
 
-    cout << words.size() << " words sorted in ";
-    cout << duration_ms << " ms" << endl;
-
-    // TODO: get from cmd line
-    // write("sorted.txt", words);
-
+    double duration_ms = duration_cast<milliseconds>(end - start).count();
+    cout << "total TIME in: " << duration_ms << " ms" << endl;
+    cout << "✅ All files processed and sorted!" << endl;
     return 0;
 }
