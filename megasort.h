@@ -35,17 +35,17 @@ void sort_parallel(vector<string>::iterator it1, vector<string>::iterator it2, i
 template <typename T>
 void megasort(vector<T> &v) {
     int n = v.size();
-    int depth = 10;
+    int depth = 5;
     int c = 0;
-    for(int j = 1;j<=depth;j++){
+    for(int j = 1;j<=1;j++){
     auto start = chrono::high_resolution_clock::now();
 
-    sort_parallel(v.begin(), v.end(), n, j);
+    sort_parallel(v.begin(), v.end(), n, depth);
 
     auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
 
-    cout << "Sorting completed in " << duration << " ms for a depth of " << pow(2, j) << endl;}
+    cout << "Sorting completed in " << duration << " ms for a depth of " << pow(2, depth) << endl;}
 }
 
 #endif

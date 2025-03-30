@@ -14,7 +14,7 @@ int main(){
     vector<string> words;
 
     // TODO: get from cmd line
-    read("./data/input_10M.txt", words);
+    read("./data/input_1B.txt", words);
 
 
 
