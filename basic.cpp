@@ -39,10 +39,11 @@ int main() {
     const int files_per_thread = 25;
 
     vector<thread> threads;
+    
     auto start = high_resolution_clock::now();
     for (int t = 0; t < 4; ++t) {
         int start_index = t * files_per_thread;
-        int end_index = (t == 3) ? total_files - 1 : (start_index + files_per_thread - 1);
+        int end_index = (start_index + files_per_thread - 1);
         threads.emplace_back(process_file_group, t, start_index, end_index, input_dir, output_dir);
     }
 
@@ -50,9 +51,9 @@ int main() {
         t.join();
     }
     auto end = high_resolution_clock::now();
-
     double duration_ms = duration_cast<milliseconds>(end - start).count();
     cout << "total TIME in: " << duration_ms << " ms" << endl;
-    cout << "✅ All files processed and sorted!" << endl;
+
+    cout << "All files processed and sorted!" << endl;
     return 0;
 }
