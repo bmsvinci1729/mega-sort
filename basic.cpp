@@ -17,7 +17,7 @@ void process_file_group(int thread_id, int start_index, int end_index, const str
         string output_path = output_dir + "/output_chunk_" + to_string(i) + ".txt";
 
         cout << "[Thread " << thread_id << "] Reading: " << input_path << endl;
-
+      
         read(input_path, words);
 
         auto start = high_resolution_clock::now();
@@ -39,6 +39,15 @@ int main() {
     const int files_per_thread = 5;
 
     vector<thread> threads;
+    auto start = high_resolution_clock::now();
+
+    read("./data/input_100M.txt", words);
+    megasort(words);
+    write("sorted.txt", words);
+
+    auto end = high_resolution_clock::now();
+    auto duration = end - start;
+    auto duration_ms = duration.count() / 1000000.0;
     
     auto start = high_resolution_clock::now();
     for (int t = 0; t < 4; ++t) {
@@ -46,7 +55,6 @@ int main() {
         int end_index = (start_index + files_per_thread - 1);
         threads.emplace_back(process_file_group, t, start_index, end_index, input_dir, output_dir);
     }
-
     for (auto &t : threads) {
         t.join();
     }

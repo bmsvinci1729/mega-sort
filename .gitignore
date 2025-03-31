@@ -7,3 +7,6 @@ data/
 merge/
 chunks_100M/
 sorted_chunks_100M/
+merge_exec/
+merge_exec1/
+a.out
