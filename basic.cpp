@@ -24,6 +24,10 @@ void process_file_group(int thread_id, int start_index, int end_index, const str
         megasort(words);
         auto end = high_resolution_clock::now();
 
+    auto start = high_resolution_clock::now();
+
+    read("./data/input_1M.txt", words);
+
         double duration_ms = duration_cast<milliseconds>(end - start).count();
         cout << "[Thread " << thread_id << "] Sorted " << words.size() << " words in " << duration_ms << " ms" << endl;
 
@@ -42,13 +46,17 @@ int main() {
     auto start = high_resolution_clock::now();
 
     read("./data/input_100M.txt", words);
+
     megasort(words);
     write("sorted.txt", words);
 
     auto end = high_resolution_clock::now();
     auto duration = end - start;
     auto duration_ms = duration.count() / 1000000.0;
-    
+
+    cout << words.size() << " words sorted in ";
+    cout << duration_ms << " ms" << endl;
+
     auto start = high_resolution_clock::now();
     for (int t = 0; t < 4; ++t) {
         int start_index = t * files_per_thread;

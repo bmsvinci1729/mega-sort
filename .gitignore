@@ -2,6 +2,11 @@
 sorted.txt
 input_1B.txt
 chunks/
+merge/
+sorted_chunks/
+data/
+sorted_chunks_100M/
+chunks_100M/
 sorted_chunks/
 data/
 merge/
