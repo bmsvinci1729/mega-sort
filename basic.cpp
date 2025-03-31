@@ -15,7 +15,7 @@ int main(){
 
     auto start = high_resolution_clock::now();
 
-    read("./data/input_100M.txt", words);
+    read("./data/input_1M.txt", words);
     megasort(words);
     write("sorted.txt", words);
 
