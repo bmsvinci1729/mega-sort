@@ -1,6 +1,8 @@
 import os
 
-def split_file(input_file, output_dir, target_chunk_count=100):
+CHUNK_SIZE = 25
+
+def split_file(input_file, output_dir, target_chunk_count=CHUNK_SIZE):
     os.makedirs(output_dir, exist_ok=True)
 
     # Step 1: Get total size of the input file
@@ -36,6 +38,6 @@ def split_file(input_file, output_dir, target_chunk_count=100):
             print(f"Written chunk_{chunk_index}.txt (final chunk)")
 
 if __name__ == '__main__':
-    input_file = 'data/input_1B.txt'
-    output_dir = 'chunks'
-    split_file(input_file, output_dir, target_chunk_count=120)
+    input_file = 'data/input_100M.txt'
+    output_dir = 'chunks_100M'
+    split_file(input_file, output_dir, target_chunk_count=CHUNK_SIZE)

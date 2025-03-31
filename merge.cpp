@@ -54,8 +54,8 @@ vector<string> get_sorted_chunk_files(const string& dir) {
 }
 
 int main() {
-    string input_dir = "./sorted_chunks";  
-    string temp_dir = "./merge";      
+    string input_dir = "./sorted_chunks_100M";  
+    string temp_dir = "./merge_100M";      
 
     vector<string> files = get_sorted_chunk_files(input_dir);
     int round = 0;

@@ -33,10 +33,10 @@ void process_file_group(int thread_id, int start_index, int end_index, const str
 }
 
 int main() {
-    const string input_dir = "./chunks";       // Folder containing chunk_*.txt
-    const string output_dir = "./sorted_chunks"; // Folder for output files
-    const int total_files = 100;
-    const int files_per_thread = 25;
+    const string input_dir = "./chunks_100M";       
+    const string output_dir = "./sorted_chunks_100M"; 
+    const int total_files = 25;
+    const int files_per_thread = 5;
 
     vector<thread> threads;
     
