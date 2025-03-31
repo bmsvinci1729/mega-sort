@@ -5,3 +5,6 @@ chunks/
 sorted_chunks/
 data/
 merge/
+merge_exec/
+merge_exec1/
+a.out
