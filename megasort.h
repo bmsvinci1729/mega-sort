@@ -1,5 +1,5 @@
-#ifndef megasort_h
-#define megasort_h
+#ifndef gigasort_h
+#define gigasort_h
 
 #include <vector>
 #include <string>
@@ -33,7 +33,7 @@ void sort_parallel(vector<string>::iterator it1, vector<string>::iterator it2, i
 }
 
 template <typename T>
-void megasort(vector<T> &v) {
+void gigasort(vector<T> &v) {
     int n = v.size();
     int depth = 5;
     int c = 0;
