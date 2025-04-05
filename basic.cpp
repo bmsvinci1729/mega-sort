@@ -4,7 +4,7 @@
 #include <thread>
 #include <string>
 #include <chrono>
-#include "megasort.h"
+#include "gigasort.h"
 #include "file.h"
 
 using namespace std;
@@ -21,7 +21,7 @@ void process_file_group(int thread_id, int start_index, int end_index, const str
         read(input_path, words);
 
         auto start = high_resolution_clock::now();
-        megasort(words);
+        gigasort(words);
         auto end = high_resolution_clock::now();
 
     auto start = high_resolution_clock::now();
@@ -47,7 +47,7 @@ int main() {
 
     read("./data/input_100M.txt", words);
 
-    megasort(words);
+    gigasort(words);
     write("sorted.txt", words);
 
     auto end = high_resolution_clock::now();
